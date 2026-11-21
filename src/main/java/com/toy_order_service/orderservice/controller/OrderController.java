@@ -1,7 +1,7 @@
-package com.toy_order_service.micro.controller;
+package com.toy_order_service.orderservice.controller;
 
-import com.toy_order_service.micro.entity.Order;
-import com.toy_order_service.micro.service.OrderService;
+import com.toy_order_service.orderservice.entity.Order;
+import com.toy_order_service.orderservice.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

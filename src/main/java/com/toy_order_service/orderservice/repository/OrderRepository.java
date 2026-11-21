@@ -1,6 +1,6 @@
-package com.toy_order_service.micro.repository;
+package com.toy_order_service.orderservice.repository;
 
-import com.toy_order_service.micro.entity.Order;
+import com.toy_order_service.orderservice.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

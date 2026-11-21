@@ -1,6 +1,6 @@
-package com.toy_order_service.micro.entity;
+package com.toy_order_service.orderservice.entity;
 
-import com.toy_order_service.micro.enums.Status;
+import com.toy_order_service.orderservice.enums.Status;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;

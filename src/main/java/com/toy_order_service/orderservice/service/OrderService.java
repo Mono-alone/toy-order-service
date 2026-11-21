@@ -1,8 +1,8 @@
-package com.toy_order_service.micro.service;
+package com.toy_order_service.orderservice.service;
 
-import com.toy_order_service.micro.entity.Order;
-import com.toy_order_service.micro.enums.Status;
-import com.toy_order_service.micro.repository.OrderRepository;
+import com.toy_order_service.orderservice.entity.Order;
+import com.toy_order_service.orderservice.enums.Status;
+import com.toy_order_service.orderservice.repository.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
