@@ -6,7 +6,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -40,9 +40,9 @@ public class Order {
     private BigDecimal amount;
 
     @Column(name = "createdAt")
-    private LocalDateTime createdAt;
+    private Instant createdAt;
 
-    public Order(String customer, String comment, BigDecimal amount, Status status, LocalDateTime createdAt) {
+    public Order(String customer, String comment, BigDecimal amount, Status status, Instant createdAt) {
         this.customer = customer;
         this.comment = comment;
         this.amount = amount;
