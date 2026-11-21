@@ -43,17 +43,17 @@ public class OrderController {
                 .body(orderService.updateOrder(orderId, orderToUpdate));
     }
 
-    @DeleteMapping()
+    @DeleteMapping
     public ResponseEntity<Void> deleteAllOrders() {
         orderService.deleteAllOrders();
-        return ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
                 .build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrderById(@PathVariable("id") UUID orderId) {
         orderService.deleteOrderById(orderId);
-        return ResponseEntity.status(HttpStatus.OK)
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
                 .build();
     }
 }
