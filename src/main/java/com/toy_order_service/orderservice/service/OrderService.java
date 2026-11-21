@@ -7,7 +7,8 @@ import com.toy_order_service.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.Clock;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,13 +18,15 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
 
+    private final Clock clock;
+
     public Order createOrder(Order newOrder) {
         Order order = new Order(
                 newOrder.getCustomer(),
                 newOrder.getComment(),
                 newOrder.getAmount(),
                 Status.NEW,
-                LocalDateTime.now()
+                Instant.now(clock)
         );
 
         return orderRepository.save(order);
