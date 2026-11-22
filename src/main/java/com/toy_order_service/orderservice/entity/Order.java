@@ -27,19 +27,21 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 255)
     @Column(name = "customer")
     private String customer;
 
     @Column(name = "comment")
+    @Size(max = 500)
     private String comment;
 
     @PositiveOrZero
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
+    @NotNull
     private BigDecimal amount;
 
-    @Column(name = "createdAt")
+    @Column(name = "createdAt", nullable = false, updatable = false)
     private Instant createdAt;
 
     public Order(String customer, String comment, BigDecimal amount, Status status, Instant createdAt) {
