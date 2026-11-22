@@ -21,7 +21,7 @@ public class OrderService {
     private final Clock clock;
 
     public Order createOrder(Order newOrder) {
-        Order order = new Order(
+        var order = new Order(
                 newOrder.getCustomer(),
                 newOrder.getComment(),
                 newOrder.getAmount(),
@@ -34,12 +34,12 @@ public class OrderService {
 
     public Order getOrderById(UUID orderId) {
         return orderRepository.findById(orderId)
-                .orElseThrow(() -> new OrderNotFoundException("Order not found: id = " + orderId));
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
     }
 
     public Order updateOrder(UUID orderId, Order orderToUpdate) {
         Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new OrderNotFoundException("Order not found: id = " + orderId));
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
 
         order.setStatus(orderToUpdate.getStatus());
         order.setAmount(orderToUpdate.getAmount());
@@ -55,7 +55,7 @@ public class OrderService {
 
     public void deleteOrderById(UUID orderId) {
         Order deleteOrder = orderRepository.findById(orderId)
-                .orElseThrow(() -> new OrderNotFoundException("Order not found: id = " + orderId));
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
         orderRepository.delete(deleteOrder);
     }
 
