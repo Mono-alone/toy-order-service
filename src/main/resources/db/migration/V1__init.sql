@@ -1,4 +1,4 @@
-CREATE TABLE If not exists orders (
+create table orders (
      id         uuid primary key default gen_random_uuid(),
      status     varchar(50)    not null,
      customer   varchar(255)   not null,
