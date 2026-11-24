@@ -3,9 +3,3 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: myuser
     password: secret
-  flyway:
-    user: myuser
-    password: secret
-    schemas: public
-    url: jdbc:postgresql://localhost:5432/postgres
-    locations: classpath:db/migration
