@@ -42,7 +42,7 @@ public class Order {
     private String customer;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "order_id")
+    @JoinColumn(name = "order_id", nullable = false)
     private List<LineItem> lineItems;
 
     private String comment;
