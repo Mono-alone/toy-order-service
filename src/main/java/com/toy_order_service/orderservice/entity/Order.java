@@ -1,9 +1,19 @@
 package com.toy_order_service.orderservice.entity;
 
 import com.toy_order_service.orderservice.enums.Status;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -18,30 +28,20 @@ import java.util.UUID;
 public class Order {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.UUID)
     @Setter(AccessLevel.NONE)
     private UUID id;
 
-    @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @NotBlank
-    @Size(max = 255)
-    @Column(name = "customer")
     private String customer;
 
-    @Column(name = "comment")
-    @Size(max = 500)
     private String comment;
 
-    @PositiveOrZero
-    @Column(name = "amount", nullable = false)
-    @NotNull
     private BigDecimal amount;
 
-    @Column(name = "createdAt", nullable = false, updatable = false)
+    @Column(updatable = false)
     private Instant createdAt;
 
     public Order(String customer, String comment, BigDecimal amount, Status status, Instant createdAt) {
