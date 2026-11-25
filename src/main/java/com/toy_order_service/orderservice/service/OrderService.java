@@ -23,6 +23,7 @@ public class OrderService {
     public Order createOrder(Order newOrder) {
         var order = new Order(
                 newOrder.getCustomer(),
+                newOrder.getLineItems(),
                 newOrder.getComment(),
                 newOrder.getAmount(),
                 Status.NEW,
@@ -42,6 +43,7 @@ public class OrderService {
                 .orElseThrow(() -> new OrderNotFoundException(orderId));
 
         order.setStatus(orderToUpdate.getStatus());
+        order.setLineItems(orderToUpdate.getLineItems());
         order.setAmount(orderToUpdate.getAmount());
         order.setComment(orderToUpdate.getComment());
         order.setCustomer(orderToUpdate.getCustomer());
