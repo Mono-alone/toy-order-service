@@ -1,5 +1,6 @@
 package com.toy_order_service.orderservice.service;
 
+import com.toy_order_service.orderservice.entity.LineItem;
 import com.toy_order_service.orderservice.entity.Order;
 import com.toy_order_service.orderservice.enums.Status;
 import com.toy_order_service.orderservice.exceptions.OrderNotFoundException;
@@ -7,6 +8,7 @@ import com.toy_order_service.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
@@ -25,7 +27,7 @@ public class OrderService {
                 newOrder.getCustomer(),
                 newOrder.getLineItems(),
                 newOrder.getComment(),
-                newOrder.getAmount(),
+                getSumAmount(newOrder.getLineItems()),
                 Status.NEW,
                 Instant.now(clock)
         );
@@ -44,7 +46,7 @@ public class OrderService {
 
         order.setStatus(orderToUpdate.getStatus());
         order.setLineItems(orderToUpdate.getLineItems());
-        order.setAmount(orderToUpdate.getAmount());
+        order.setAmount(getSumAmount(orderToUpdate.getLineItems()));
         order.setComment(orderToUpdate.getComment());
         order.setCustomer(orderToUpdate.getCustomer());
 
@@ -63,5 +65,15 @@ public class OrderService {
 
     public void deleteAllOrders() {
         orderRepository.deleteAll();
+    }
+
+    private BigDecimal getSumAmount(List<LineItem> lineItems) {
+        BigDecimal sum = BigDecimal.ZERO;
+
+        for (LineItem lineItem : lineItems) {
+            sum = sum.add(lineItem.getAmount());
+        }
+
+        return sum;
     }
 }
