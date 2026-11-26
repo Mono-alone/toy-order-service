@@ -20,6 +20,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -43,7 +44,7 @@ public class Order {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id", nullable = false)
-    private List<LineItem> lineItems;
+    private List<LineItem> lineItems = new ArrayList<>();
 
     private String comment;
 
@@ -59,5 +60,10 @@ public class Order {
         this.amount = amount;
         this.status = status;
         this.createdAt = createdAt;
+    }
+
+    public void setLineItems(List<LineItem> newLineItems) {
+        lineItems.clear();
+        lineItems.addAll(newLineItems);
     }
 }
