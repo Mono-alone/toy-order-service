@@ -3,8 +3,10 @@ package com.toy_order_service.orderservice.service;
 import com.toy_order_service.orderservice.entity.LineItem;
 import com.toy_order_service.orderservice.entity.Order;
 import com.toy_order_service.orderservice.enums.Status;
+import com.toy_order_service.orderservice.exceptions.InvalidOrderStateException;
 import com.toy_order_service.orderservice.exceptions.OrderNotFoundException;
 import com.toy_order_service.orderservice.repository.OrderRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -66,6 +68,40 @@ public class OrderService {
     public void deleteAllOrders() {
         orderRepository.deleteAll();
     }
+
+    @Transactional
+    public void pay(UUID orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+        if (!order.getStatus().equals(Status.NEW)) {
+            throw new InvalidOrderStateException(order.getStatus(), Status.PAID);
+        }
+        order.setStatus(Status.PAID);
+    }
+
+    @Transactional
+    public void ship(UUID orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+        switch (order.getStatus()) {
+            case NEW, CANCELLED, SHIPPED -> throw new InvalidOrderStateException(order.getStatus(), Status.SHIPPED);
+            case PAID -> order.setStatus(Status.SHIPPED);
+        }
+    }
+
+    @Transactional
+    public void cancel(UUID orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
+
+        if (order.getStatus().equals(Status.SHIPPED) || order.getStatus().equals(Status.CANCELLED)) {
+            throw new InvalidOrderStateException(order.getStatus(), Status.CANCELLED);
+        }
+        order.setStatus(Status.CANCELLED);
+    }
+
 
     private BigDecimal getSumAmount(List<LineItem> lineItems) {
         BigDecimal sum = BigDecimal.ZERO;
