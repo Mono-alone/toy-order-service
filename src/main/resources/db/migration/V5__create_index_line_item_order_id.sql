@@ -1,0 +1,1 @@
+create index idx_line_items_order_id on line_items (order_id);
